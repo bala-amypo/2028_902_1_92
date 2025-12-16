@@ -40,7 +40,13 @@ public class JwtFilter extends OncePerRequestFilter{
         }
         if(username != null && SecurityContextHolder.getContext().getAuthentication()==null){
 
-            UserDetails userdetails=userDetailsService
+            UserDetails userdetails=userDetailsService.loadUserByUsername(username);
+
+            if(jwtUtil.validateToken(token,UserDetails)){
+                UsernamePasswordAuthenticationToken authToken=new UsernamePasswordAuthenticationToken(userDetails,null,userDetails.getAuthorities());
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+                
+            }
         }
     }
 }
