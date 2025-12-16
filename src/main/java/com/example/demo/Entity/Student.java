@@ -1,3 +1,7 @@
+package com.example.project.entity;
+
+import java.time.LocalDate;
+
 public class Student{
     private int id;
     private String name;
@@ -34,7 +38,7 @@ public class Student{
     this.name=name;
     this.email=email;
     this.cgpa=cgpa;
-    
+
    }
 
 
