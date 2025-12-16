@@ -20,16 +20,22 @@ public class Student{
     public int getEmail(){
         return email;
     }
-    public void setEmail(){
+    public void setEmail(String email){
         this.email=email;
     }
     public int getCgpa(){
        return cgpa;
     }
-    public void setCgpa(){
+    public void setCgpa(float cgpa){
         this.cgpa=cgpa;
     }
-   public Student(int)
+   public Student(int id,String name,String email,float cgpa){
+    this.id=id;
+    this.name=name;
+    this.email=email;
+    this.cgpa=cgpa;
+    
+   }
 
 
 }
