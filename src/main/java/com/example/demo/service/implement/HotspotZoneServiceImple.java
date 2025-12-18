@@ -1,2 +1,2 @@
 package com.example.demo.service.implement;
-public interface
+public interface HotspotZoneService
