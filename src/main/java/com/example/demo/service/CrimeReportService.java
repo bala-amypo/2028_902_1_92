@@ -1,8 +1,13 @@
+
 package com.example.demo.service;
-// import com.example.demo.entity.CrimeReport;
-// import java.util.List;
 
+import com.example.demo.model.CrimeReport;
 
-public class CrimeReportService{
+import java.util.List;
 
+public interface CrimeReportService {
+
+CrimeReport addReport(CrimeReport report);
+
+List<CrimeReport> getAllReports();
 }

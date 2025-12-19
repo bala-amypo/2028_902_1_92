@@ -20,64 +20,15 @@ String login(String email, String rawPassword);
 
 CrimeReportService.java
 
-package com.example.demo.service;
-
-import com.example.demo.model.CrimeReport;
-
-import java.util.List;
-
-public interface CrimeReportService {
-
-CrimeReport addReport(CrimeReport report);
-
-List<CrimeReport> getAllReports();
-}
 
 
 demoAoneService.java
 
-package com.example.demo.service;
-
-import com.example.demo.model.demoZone;
-
-import java.util.List;
-
-public interface demoZoneService {
-
-demoZone addZone(demoZone zone);
-
-List<demoZone> getAllZones();
-}
-
 
 PatternDetectionService.java
 
-package com.example.demo.service;
-
-import com.example.demo.model.PatternDetectionResult;
-
-import java.util.List;
-
-public interface PatternDetectionService {
-
-PatternDetectionResult detectPattern(Long zoneId);
-
-List<PatternDetectionResult> getResultsByZone(Long zoneId);
-}
-
 
 UserService.java
-
-package com.example.demo.service;
-
-import com.example.demo.model.User;
-
-public interface UserService {
-
-User register(User user);
-
-User findByEmail(String email); // must throw exception if not found
-}
 
 
 
@@ -87,61 +38,6 @@ ServiceImplemnt
 AnalysisLogServiceImpl.java
 
 
-package com.example.demo.service.Implement;
-
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.AnalysisLog;
-import com.example.demo.model.demoZone;
-import com.example.demo.repository.AnalysisLogRepository;
-import com.example.demo.repository.demoZoneRepository;
-import com.example.demo.service.AnalysisLogService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDateTime;
-import java.util.List;
-
-@Service
-public class AnalysisLogServiceImpl implements AnalysisLogService {
-
-private final AnalysisLogRepository analysisLogRepository;
-private final demoZoneRepository demoZoneRepository;
-
-public AnalysisLogServiceImpl(AnalysisLogRepository analysisLogRepository,
-demoZoneRepository demoZoneRepository) {
-this.analysisLogRepository = analysisLogRepository;
-this.demoZoneRepository = demoZoneRepository;
-}
-
-@Override
-public AnalysisLog addLog(Long zoneId, String message) {
-
-if (message == null || message.trim().isEmpty()) {
-// goes to IllegalArgumentException handler
-throw new IllegalArgumentException("Analysis log message must not be empty");
-}
-
-demoZone zone = demoZoneRepository.findById(zoneId)
-.orElseThrow(() ->
-// goes to ResourceNotFoundException handler; must contain "not" or "zone"
-new ResourceNotFoundException("Zone not found for id " + zoneId));
-
-AnalysisLog log = new AnalysisLog();
-log.setZone(zone);
-log.setMessage(message.trim());
-log.setLoggedAt(LocalDateTime.now());
-
-return analysisLogRepository.save(log);
-}
-
-@Override
-public List<AnalysisLog> getLogsByZone(Long zoneId) {
-demoZone zone = demoZoneRepository.findById(zoneId)
-.orElseThrow(() ->
-new ResourceNotFoundException("Zone not found for id " + zoneId));
-
-return analysisLogRepository.findByZone_Id(zone.getId());
-}
-}
 
 
 
@@ -191,38 +87,6 @@ return userRepository.findByEmail(email)
 
 
 CrimeReportServiceImpl.java
-
-
-package com.example.demo.service.Implement;
-
-import com.example.demo.model.CrimeReport;
-import com.example.demo.repository.CrimeReportRepository;
-import com.example.demo.service.CrimeReportService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class CrimeReportServiceImpl implements CrimeReportService {
-
-private final CrimeReportRepository crimeReportRepository;
-
-public CrimeReportServiceImpl(CrimeReportRepository crimeReportRepository) {
-this.crimeReportRepository = crimeReportRepository;
-}
-
-@Override
-public CrimeReport addReport(CrimeReport report) {
-// validation rules (lat between -90..90, long -180..180, date not future)
-// should be handled by validators/exceptions if your test includes them.
-return crimeReportRepository.save(report);
-}
-
-@Override
-public List<CrimeReport> getAllReports() {
-return crimeReportRepository.findAll();
-}
-}
 
 
 demoZoneServiceImpl.java
