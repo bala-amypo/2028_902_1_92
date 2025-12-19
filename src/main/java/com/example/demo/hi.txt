@@ -1,4 +1,9 @@
 
+
+
+
+
+
 User.java model
 
 package com.example.Hotspot.model;
@@ -251,3 +256,37 @@ EXCEPTION FOLDER
 
 
 ResourceNotFoundException.java
+
+
+
+
+package com.example.Hotspot.controller;
+
+import com.example.Hotspot.model.HotspotZone;
+import com.example.Hotspot.service.HotspotZoneService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/zones")
+public class HotspotZoneController {
+
+    private final HotspotZoneService hotspotZoneService;
+
+    public HotspotZoneController(HotspotZoneService hotspotZoneService) {
+        this.hotspotZoneService = hotspotZoneService;
+    }
+
+    @PostMapping
+    public ResponseEntity<HotspotZone> addZone(@RequestBody HotspotZone zone) {
+        HotspotZone saved = hotspotZoneService.addZone(zone);
+        return ResponseEntity.ok(saved);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<HotspotZone>> getAllZones() {
+        return ResponseEntity.ok(hotspotZoneService.getAllZones());
+    }
+}

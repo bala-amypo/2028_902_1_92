@@ -1,3 +1,4 @@
+
 package com.example.demo.controller;
 
 import com.example.demo.model.HotspotZone;
@@ -11,20 +12,20 @@ import java.util.List;
 @RequestMapping("/zones")
 public class HotspotZoneController {
 
-private final HotspotZoneService ZoneService;
+    private final HotspotZoneService hotspotZoneService;
 
-public demoZoneController(demoZoneService demoZoneService) {
-this.demoZoneService = demoZoneService;
-}
+    public HotspotZoneController(HotspotZoneService hotspotZoneService) {
+        this.hotspotZoneService = hotspotZoneService;
+    }
 
-@PostMapping
-public ResponseEntity<demoZone> addZone(@RequestBody demoZone zone) {
-demoZone saved = demoZoneService.addZone(zone);
-return ResponseEntity.ok(saved);
-}
+    @PostMapping
+    public ResponseEntity<HotspotZone> addZone(@RequestBody HotspotZone zone) {
+        HotspotZone saved = hotspotZoneService.addZone(zone);
+        return ResponseEntity.ok(saved);
+    }
 
-@GetMapping
-public ResponseEntity<List<demoZone>> getAllZones() {
-return ResponseEntity.ok(demoZoneService.getAllZones());
-}
+    @GetMapping
+    public ResponseEntity<List<HotspotZone>> getAllZones() {
+        return ResponseEntity.ok(hotspotZoneService.getAllZones());
+    }
 }
