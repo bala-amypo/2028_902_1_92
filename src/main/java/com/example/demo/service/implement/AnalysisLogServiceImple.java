@@ -1,9 +1,8 @@
-
-package com.example.demo.service.Implement;
+package com.example.demo.service.implement;
 
 import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.AnalysisLog;
-import com.example.demo.model.demoZone;
+import com.example.demo.model.HotspotZone;
 import com.example.demo.repository.AnalysisLogRepository;
 import com.example.demo.repository.demoZoneRepository;
 import com.example.demo.service.AnalysisLogService;

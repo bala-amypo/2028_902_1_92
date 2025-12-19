@@ -1,20 +1,20 @@
 
-package com.example.demo.service.Implement;
+package com.example.demo.service.implement;
 
-import com.example.demo.model.demoZone;
-import com.example.demo.repository.demoZoneRepository;
-import com.example.demo.service.demoZoneService;
+import com.example.demo.model.HotspotZone;
+import com.example.demo.repository.HotspotZoneRepository;
+import com.example.demo.service.HotspotZoneService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class demoZoneServiceImpl implements demoZoneService {
+public class HotspotZoneServiceImpl implements HotspotZoneService {
 
-private final demoZoneRepository demoZoneRepository;
+private final HotspotZoneRepository hotspotZoneRepository;
 
-public demoZoneServiceImpl(demoZoneRepository demoZoneRepository) {
-this.demoZoneRepository = demoZoneRepository;
+public demoZoneServiceImpl(HotspotZoneRepository hotspotZoneRepository) {
+this.hotspotZoneRepository = demoZoneRepository;
 }
 
 @Override
