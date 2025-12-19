@@ -1,13 +1,16 @@
 
-package com.example.demo.service;
+package com.example.demo.repository;
 
-import com.example.demo.model.HotspotZone;
+import com.example.demo.model.demoZone;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
-public interface HotspotZoneService {
+public interface demoZoneRepository extends JpaRepository<demoZone, Long> {
 
-demoZone addZone(demoZone zone);
+List<demoZone> findBySeverityLevel(String level);
 
-List<demoZone> getAllZones();
+Optional<demoZone> findByZoneName(String zoneName);
 }
+

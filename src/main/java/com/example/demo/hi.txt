@@ -91,112 +91,9 @@ CrimeReportServiceImpl.java
 
 demoZoneServiceImpl.java
 
-package com.example.demo.service.Implement;
-
-import com.example.demo.model.demoZone;
-import com.example.demo.repository.demoZoneRepository;
-import com.example.demo.service.demoZoneService;
-import org.springframework.stereotype.Service;
-
-import java.util.List;
-
-@Service
-public class demoZoneServiceImpl implements demoZoneService {
-
-private final demoZoneRepository demoZoneRepository;
-
-public demoZoneServiceImpl(demoZoneRepository demoZoneRepository) {
-this.demoZoneRepository = demoZoneRepository;
-}
-
-@Override
-public demoZone addZone(demoZone zone) {
-// uniqueness & coordinate validation can be handled by validators
-return demoZoneRepository.save(zone);
-}
-
-@Override
-public List<demoZone> getAllZones() {
-return demoZoneRepository.findAll();
-}
-}
 
 
 PatternDetectionServiceImpl.java
-
-
-package com.example.demo.service.Implement;
-
-import com.example.demo.model.CrimeReport;
-import com.example.demo.model.demoZone;
-import com.example.demo.model.PatternDetectionResult;
-import com.example.demo.repository.CrimeReportRepository;
-import com.example.demo.repository.demoZoneRepository;
-import com.example.demo.repository.PatternDetectionResultRepository;
-import com.example.demo.service.PatternDetectionService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.util.List;
-
-@Service
-public class PatternDetectionServiceImpl implements PatternDetectionService {
-
-private final demoZoneRepository demoZoneRepository;
-private final CrimeReportRepository crimeReportRepository;
-private final PatternDetectionResultRepository patternDetectionResultRepository;
-
-public PatternDetectionServiceImpl(demoZoneRepository demoZoneRepository,
-CrimeReportRepository crimeReportRepository,
-PatternDetectionResultRepository patternDetectionResultRepository) {
-this.demoZoneRepository = demoZoneRepository;
-this.crimeReportRepository = crimeReportRepository;
-this.patternDetectionResultRepository = patternDetectionResultRepository;
-}
-
-@Override
-public PatternDetectionResult detectPattern(Long zoneId) {
-demoZone zone = demoZoneRepository.findById(zoneId)
-.orElseThrow(() -> new RuntimeException("Zone not found"));
-
-double minLat = zone.getCenterLat() - 0.1;
-double maxLat = zone.getCenterLat() + 0.1;
-double minLong = zone.getCenterLong() - 0.1;
-double maxLong = zone.getCenterLong() + 0.1;
-
-List<CrimeReport> reports =
-crimeReportRepository.findByLatLongRange(minLat, maxLat, minLong, maxLong);
-
-int crimeCount = reports.size();
-
-String pattern;
-if (crimeCount > 5) {
-pattern = "High";
-zone.setSeverityLevel("HIGH");
-} else if (crimeCount > 0) {
-pattern = "Medium";
-zone.setSeverityLevel("MEDIUM");
-} else {
-pattern = "No";
-zone.setSeverityLevel("LOW");
-}
-
-demoZoneRepository.save(zone);
-
-PatternDetectionResult result = new PatternDetectionResult();
-result.setZone(zone);
-result.setAnalysisDate(LocalDate.now());
-result.setCrimeCount(crimeCount);
-result.setDetectedPattern(pattern);
-
-return patternDetectionResultRepository.save(result);
-}
-
-@Override
-public List<PatternDetectionResult> getResultsByZone(Long zoneId) {
-return patternDetectionResultRepository.findByZone_Id(zoneId);
-}
-}
 
 
 
@@ -206,62 +103,12 @@ REPOSITORY FOLDEER
 
 AnalysisLogRepository.java
 
-package com.example.demo.repository;
-
-import com.example.demo.model.AnalysisLog;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-
-public interface AnalysisLogRepository extends JpaRepository<AnalysisLog, Long> {
-
-List<AnalysisLog> findByZone_Id(Long zoneId);
-}
-
-
 
 CrimeReportRepository.java
-
-package com.example.demo.repository;
-
-import com.example.demo.model.CrimeReport;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.query.Param;
-
-import java.util.List;
-
-public interface CrimeReportRepository extends JpaRepository<CrimeReport, Long> {
-
-// Exact name: findByLatLongRange(double minLat, double maxLat, double minLong, double maxLong)
-@Query("SELECT c FROM CrimeReport c " +
-"WHERE c.latitude BETWEEN :minLat AND :maxLat " +
-"AND c.longitude BETWEEN :minLong AND :maxLong")
-List<CrimeReport> findByLatLongRange(@Param("minLat") double minLat,
-@Param("maxLat") double maxLat,
-@Param("minLong") double minLong,
-@Param("maxLong") double maxLong);
-}
 
 
 
 demoZoneRepository.java
-
-package com.example.demo.repository;
-
-import com.example.demo.model.demoZone;
-import org.springframework.data.jpa.repository.JpaRepository;
-
-import java.util.List;
-import java.util.Optional;
-
-public interface demoZoneRepository extends JpaRepository<demoZone, Long> {
-
-List<demoZone> findBySeverityLevel(String level);
-
-Optional<demoZone> findByZoneName(String zoneName);
-}
-
 
 
 
