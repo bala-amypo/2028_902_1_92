@@ -1,53 +1,6 @@
 
 
-PatternDetectionResult.java
-
-
-User.java
-
-
-
-CONTROLLER FOLDER
-
-
-
-
-
-AuthController.java
-
-
-
-
-crimeReportcontroller.java
-
-
-
-demoZoneController.java
-
-
-
-PatternDetectionController.java
-
-
-
-
-
 SERVICE FOLDER
-
-AnalysisLogService.java
-
-package com.example.demo.service;
-
-import com.example.demo.model.AnalysisLog;
-
-import java.util.List;
-
-public interface AnalysisLogService {
-
-AnalysisLog addLog(Long zoneId, String message);
-
-List<AnalysisLog> getLogsByZone(Long zoneId);
-}
 
 
 AuthService.java
