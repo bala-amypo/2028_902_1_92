@@ -7,10 +7,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 import java.util.Optional;
 
-public interface demoZoneRepository extends JpaRepository<demoZone, Long> {
+public interface HotspotZoneRepository extends JpaRepository<demoZone, Long> {
 
-List<demoZone> findBySeverityLevel(String level);
+List<HotspotZone> findBySeverityLevel(String level);
 
-Optional<demoZone> findByZoneName(String zoneName);
+Optional<HotspotZone> findByZoneName(String zoneName);
 }
 
