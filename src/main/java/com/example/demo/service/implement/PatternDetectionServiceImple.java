@@ -15,14 +15,14 @@ import java.util.List;
 @Service
 public class PatternDetectionServiceImpl implements PatternDetectionService {
 
-private final HotspotZoneRepository demoZoneRepository;
+private final HotspotZoneRepository hotspotZoneRepository;
 private final CrimeReportRepository crimeReportRepository;
 private final PatternDetectionResultRepository patternDetectionResultRepository;
 
-public PatternDetectionServiceImpl(demoZoneRepository demoZoneRepository,
+public PatternDetectionServiceImpl(HotspotZoneRepository hotspotZoneRepository,
 CrimeReportRepository crimeReportRepository,
 PatternDetectionResultRepository patternDetectionResultRepository) {
-this.demoZoneRepository = demoZoneRepository;
+this.HotspotZoneRepository = HotspotZoneRepository;
 this.crimeReportRepository = crimeReportRepository;
 this.patternDetectionResultRepository = patternDetectionResultRepository;
 }
