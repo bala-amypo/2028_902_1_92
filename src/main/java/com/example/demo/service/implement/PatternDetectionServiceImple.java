@@ -1,12 +1,10 @@
-
-
 package com.example.demo.service.Implement;
 
 import com.example.demo.model.CrimeReport;
-import com.example.demo.model.demoZone;
+import com.example.demo.model.HotspotZone;
 import com.example.demo.model.PatternDetectionResult;
 import com.example.demo.repository.CrimeReportRepository;
-import com.example.demo.repository.demoZoneRepository;
+import com.example.demo.repository.HotspotZoneRepository;
 import com.example.demo.repository.PatternDetectionResultRepository;
 import com.example.demo.service.PatternDetectionService;
 import org.springframework.stereotype.Service;
@@ -17,7 +15,7 @@ import java.util.List;
 @Service
 public class PatternDetectionServiceImpl implements PatternDetectionService {
 
-private final demoZoneRepository demoZoneRepository;
+private final HotspotZoneRepository demoZoneRepository;
 private final CrimeReportRepository crimeReportRepository;
 private final PatternDetectionResultRepository patternDetectionResultRepository;
 
@@ -31,7 +29,7 @@ this.patternDetectionResultRepository = patternDetectionResultRepository;
 
 @Override
 public PatternDetectionResult detectPattern(Long zoneId) {
-demoZone zone = demoZoneRepository.findById(zoneId)
+demoZone zone = HotspotZoneRepository.findById(zoneId)
 .orElseThrow(() -> new RuntimeException("Zone not found"));
 
 double minLat = zone.getCenterLat() - 0.1;
@@ -56,7 +54,7 @@ pattern = "No";
 zone.setSeverityLevel("LOW");
 }
 
-demoZoneRepository.save(zone);
+HotspotZoneRepository.save(zone);
 
 PatternDetectionResult result = new PatternDetectionResult();
 result.setZone(zone);

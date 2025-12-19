@@ -14,17 +14,17 @@ public class HotspotZoneServiceImpl implements HotspotZoneService {
 private final HotspotZoneRepository hotspotZoneRepository;
 
 public demoZoneServiceImpl(HotspotZoneRepository hotspotZoneRepository) {
-this.hotspotZoneRepository = demoZoneRepository;
+this.hotspotZoneRepository = hotspotZoneRepository;
 }
 
 @Override
-public demoZone addZone(demoZone zone) {
+public HotspotZone addZone(HotspotZone zone) {
 // uniqueness & coordinate validation can be handled by validators
-return demoZoneRepository.save(zone);
+return HotspotZoneRepository.save(zone);
 }
 
 @Override
 public List<demoZone> getAllZones() {
-return demoZoneRepository.findAll();
+return HotspotZoneRepository.findAll();
 }
 }
