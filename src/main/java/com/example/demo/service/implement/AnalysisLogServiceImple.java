@@ -15,12 +15,12 @@ import java.util.List;
 public class AnalysisLogServiceImpl implements AnalysisLogService {
 
 private final AnalysisLogRepository analysisLogRepository;
-private final demoZoneRepository demoZoneRepository;
+private final HotspotZoneRepository hotspotZoneRepository;
 
 public AnalysisLogServiceImpl(AnalysisLogRepository analysisLogRepository,
-demoZoneRepository demoZoneRepository) {
+HotspotZoneRepository hotspotZoneRepository) {
 this.analysisLogRepository = analysisLogRepository;
-this.demoZoneRepository = demoZoneRepository;
+this.hotspotZoneRepository = hotspotZoneRepository;
 }
 
 @Override
@@ -31,7 +31,7 @@ if (message == null || message.trim().isEmpty()) {
 throw new IllegalArgumentException("Analysis log message must not be empty");
 }
 
-demoZone zone = demoZoneRepository.findById(zoneId)
+hotspotZone zone = oZoneRepository.findById(zoneId)
 .orElseThrow(() ->
 // goes to ResourceNotFoundException handler; must contain "not" or "zone"
 new ResourceNotFoundException("Zone not found for id " + zoneId));

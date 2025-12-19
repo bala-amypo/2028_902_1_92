@@ -29,7 +29,7 @@ this.patternDetectionResultRepository = patternDetectionResultRepository;
 
 @Override
 public PatternDetectionResult detectPattern(Long zoneId) {
-demoZone zone = HotspotZoneRepository.findById(zoneId)
+HotspotZone zone = HotspotZoneRepository.findById(zoneId)
 .orElseThrow(() -> new RuntimeException("Zone not found"));
 
 double minLat = zone.getCenterLat() - 0.1;
