@@ -4,7 +4,7 @@ import com.example.demo.exception.ResourceNotFoundException;
 import com.example.demo.model.AnalysisLog;
 import com.example.demo.model.HotspotZone;
 import com.example.demo.repository.AnalysisLogRepository;
-import com.example.demo.repository.demoZoneRepository;
+import com.example.demo.repository.HotspotZoneRepository;
 import com.example.demo.service.AnalysisLogService;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +31,7 @@ if (message == null || message.trim().isEmpty()) {
 throw new IllegalArgumentException("Analysis log message must not be empty");
 }
 
-hotspotZone zone = oZoneRepository.findById(zoneId)
+hotspotZone zone = hotspotZoneRepository.findById(zoneId)
 .orElseThrow(() ->
 // goes to ResourceNotFoundException handler; must contain "not" or "zone"
 new ResourceNotFoundException("Zone not found for id " + zoneId));
@@ -46,7 +46,7 @@ return analysisLogRepository.save(log);
 
 @Override
 public List<AnalysisLog> getLogsByZone(Long zoneId) {
-demoZone zone = demoZoneRepository.findById(zoneId)
+HotspotZone zone = HotspotZoneRepository.findById(zoneId)
 .orElseThrow(() ->
 new ResourceNotFoundException("Zone not found for id " + zoneId));
 
