@@ -24,7 +24,7 @@ return HotspotZoneRepository.save(zone);
 }
 
 @Override
-public List<demoZone> getAllZones() {
+public List<HotspotZone> getAllZones() {
 return HotspotZoneRepository.findAll();
 }
 }
