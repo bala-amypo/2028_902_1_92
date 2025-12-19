@@ -1,11 +1,30 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.CrimeReport;
+import com.example.demo.model.CrimeReport;
 import com.example.demo.service.CrimeReportService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*; 
+import org.springframework.web.bind.annotation.*;
 
-public class CrimeReportController{
+import java.util.List;
 
+@RestController
+@RequestMapping("/reports")
+public class CrimeReportController {
+
+private final CrimeReportService crimeReportService;
+
+public CrimeReportController(CrimeReportService crimeReportService) {
+this.crimeReportService = crimeReportService;
 }
-.
+
+@PostMapping
+public ResponseEntity<CrimeReport> addReport(@RequestBody CrimeReport report) {
+CrimeReport saved = crimeReportService.addReport(report);
+return ResponseEntity.ok(saved);
+}
+
+@GetMapping
+public ResponseEntity<List<CrimeReport>> getAllReports() {
+return ResponseEntity.ok(crimeReportService.getAllReports());
+}
+}
