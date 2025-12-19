@@ -1,7 +1,7 @@
 package com.example.demo.controller;
 
-import com.example.demo.model.demoZone;
-import com.example.demo.service.demoZoneService;
+import com.example.demo.model.HotspotZone;
+import com.example.demo.service.HotspotZoneService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping("/zones")
 public class HotspotZoneController {
 
-private final demoZoneService demoZoneService;
+private final HotspotZoneService ZoneService;
 
 public demoZoneController(demoZoneService demoZoneService) {
 this.demoZoneService = demoZoneService;
