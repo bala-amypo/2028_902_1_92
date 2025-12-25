@@ -6,6 +6,7 @@ import com.example.demo.repository.UserRepository;
 import com.example.demo.service.UserService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework/security.crypto
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -24,7 +25,7 @@ public UserServiceImpl(UserRepository userRepository){
     this.userRepository=userRepository;
     this.passwordEncoder=new BCryptPasswordEncoder();
     }
-    
+
 @Override
 public User register(User user) {
 // duplicate email
