@@ -26,6 +26,7 @@ public class SecurityConfig {
                 .requestMatchers("/auth/**", "/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**").permitAll()
                 .anyRequest().permitAll()
             )
+            .headers(headers -> headers.frameOptions().disable());
         
         return http.build();
     }
