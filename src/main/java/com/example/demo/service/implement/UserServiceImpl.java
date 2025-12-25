@@ -20,6 +20,11 @@ this.userRepository = userRepository;
 this.passwordEncoder = passwordEncoder;
 }
 
+public UserServiceImpl(UserRepository userRepository){
+    this.userRepository=userRepository;
+    this.passwordEncoder=new BCryptPasswordEncoder();
+    }
+    
 @Override
 public User register(User user) {
 // duplicate email
