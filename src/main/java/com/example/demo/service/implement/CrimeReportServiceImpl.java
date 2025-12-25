@@ -1,34 +1,37 @@
-
 package com.example.demo.service.impl;
 
 import com.example.demo.model.CrimeReport;
 import com.example.demo.repository.CrimeReportRepository;
 import com.example.demo.service.CrimeReportService;
-import com.example.demo.util.CoordinateValidator;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
 public class CrimeReportServiceImpl implements CrimeReportService {
-
-private final CrimeReportRepository crimeReportRepository;
-
-public CrimeReportServiceImpl(CrimeReportRepository crimeReportRepository) {
-this.crimeReportRepository = crimeReportRepository;
-}
-
-@Override
-public CrimeReport addReport(CrimeReport report) {
-
-// centralised validation
-CoordinateValidator.validateCrimeReport(report);
-
-return crimeReportRepository.save(report);
-}
-
-@Override
-public List<CrimeReport> getAllReports() {
-return crimeReportRepository.findAll();
-}
+    private final CrimeReportRepository reportRepository;
+    
+    public CrimeReportServiceImpl(CrimeReportRepository reportRepository) {
+        this.reportRepository = reportRepository;
+    }
+    
+    @Override
+    public CrimeReport addReport(CrimeReport report) {
+        if (report.getLatitude() < -90 || report.getLatitude() > 90) {
+            throw new IllegalArgumentException("Invalid latitude range");
+        }
+        if (report.getLongitude() < -180 || report.getLongitude() > 180) {
+            throw new IllegalArgumentException("Invalid longitude range");
+        }
+        if (report.getOccurredAt() != null && report.getOccurredAt().isAfter(LocalDateTime.now())) {
+            throw new IllegalArgumentException("Occurred time cannot be in future");
+        }
+        
+        return reportRepository.save(report);
+    }
+    
+    @Override
+    public List<CrimeReport> getAllReports() {
+        return reportRepository.findAll();
+    }
 }

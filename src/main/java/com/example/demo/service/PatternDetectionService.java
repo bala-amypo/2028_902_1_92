@@ -1,12 +1,8 @@
 package com.example.demo.service;
 
-import com.example.demo.model.PatternDetectionResult;
+import com.example.demo.model.User;
 
-import java.util.List;
-
-public interface PatternDetectionService {
-
-PatternDetectionResult detectPattern(Long zoneId);
-
-List<PatternDetectionResult> getResultsByZone(Long zoneId);
+public interface UserService {
+    User register(User user);
+    User findByEmail(String email);
 }
