@@ -31,7 +31,8 @@ public class AuthController {
         User savedUser = userService.register(user);
         return ResponseEntity.ok(savedUser);
     }
-    
+    //This method receives user data from the request body as a User object 
+    //and returns a response containing the saved user with HTTP status.
     @PostMapping("/login")
     @Operation(summary = "Login user")
     public ResponseEntity<AuthResponse> login(@RequestBody AuthRequest request) {
